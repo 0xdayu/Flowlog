@@ -1,0 +1,3 @@
+ON switch_port(swpt):
+  INSERT (swpt, swpt.pt) INTO switch_has_port;
+

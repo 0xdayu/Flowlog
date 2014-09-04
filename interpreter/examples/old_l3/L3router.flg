@@ -1,0 +1,168 @@
+/*
+ * Basic functionality for routing to directly attached subnets.
+ *
+ * (description goes here)
+ *
+ * TODO:
+ *  - split out an "interfaces" relation which has (ip, mac, locsw, locpt)
+ *  - would be great if NAT were't explicitly included here
+ */
+
+INCLUDE "examples/Arp_Cache.flg";
+INCLUDE "examples/NATgeneric.flg";
+INCLUDE "examples/L3external.flg";
+
+/*******************************************************************************
+ *
+ * Data Structures
+ *
+ ******************************************************************************/
+
+// Information about directly attached subnets
+//
+// Column values:
+// subnet addr, subnet mask, gw ip, gw mac, locSw, locpt
+TABLE subnets(ipaddr, int, ipaddr, macaddr, switchid, portid);
+
+// Table representing packets which router needs to send an ARP query for
+//
+// TODO(adf): how do we deliver this packet later???
+// TODO(adf): actually store the packet buffer, not just its nwdst
+TABLE router_queued(ipaddr);
+
+// Table matching routers with their NATs
+//
+// Column values:
+// router locSw, NAT locSw
+TABLE router_nat(switchid, switchid);
+
+// Table matching routers with their translation switches
+//
+// Column values:
+// router locSw, translator locSw
+TABLE router_tr(switchid, switchid);
+
+// Table matching routers with their ACL switches
+//
+// Column values:
+// router locSw, acl locSw
+TABLE router_acl(switchid, switchid);
+
+/*******************************************************************************
+ *
+ * L3 routing to directly attached subnets
+ *
+ * Only wrinkle is that we need to send packets to our NAT switch if they need
+ * to be un-NAT'd before processing. L3external.flg contains the rule which
+ * sends to the NAT for packets which need NATing before hitting external.
+ *
+ ******************************************************************************/
+
+ON ip_packet(pkt):
+  DO forward(new) WHERE
+    subnets(addr, mask, ANY, new.dlSrc, pkt.locSw, new.locPt)
+    and pkt.nwDst IN addr/mask
+    // exempt packets which need NAT
+    and needs_nat(pkt.locSw, needs_nat_subnet, needs_nat_mask)
+    and NOT (pkt.nwSrc IN needs_nat_subnet/needs_nat_mask)
+    // exempt packets to the NAT (note positive use of router_nat since 1-1 between rtr & nat)
+    and router_nat(pkt.locSw, natid)
+    and NOT natconfig(natid, ANY, ANY, pkt.nwDst);
+
+// on the router, send all NAT-destined traffic to the NAT
+ON ip_packet(pkt):
+  DO forward(new) WHERE
+    natconfig(natid, ANY, ANY, pkt.nwDst)
+    and router_nat(pkt.locSw, natid)
+    and subnets(ANY, ANY, ANY, ANY, pkt.locSw, ANY) // TODO(adf): make a smaller relation?
+    and pkt.locPt != 1
+    and new.locPt = 1; // TODO(adf): make magic NAT port configurable?
+
+// packets destined whose source says they need NATing
+
+ON ip_packet(pkt):
+  DO forward(new) WHERE
+    subnets(ANY, ANY, ANY, ANY, pkt.locSw, ANY) // TODO(adf): make a smaller relation?
+
+    and needs_nat(pkt.locSw, needs_nat_subnet, needs_nat_mask)
+    and (pkt.nwSrc IN needs_nat_subnet/needs_nat_mask)
+    and NOT (pkt.nwDst IN needs_nat_subnet/needs_nat_mask)
+
+    and new.locPt = 1; // TODO(adf): make magic NAT port configurable?
+
+
+/*******************************************************************************
+ *
+ * Per-subnet translators: inbound path
+ *
+ * The inbound path is simple: just pass from port 2N-1 to port 2N for every
+ * subnet N. Note that subnet N is attached to port N+1 on the router.
+ *
+ ******************************************************************************/
+
+ON ip_packet(pkt):
+  DO forward(new) WHERE
+    subnets(ANY, ANY, ANY, pkt.dlDst, router, rport)
+    and router_tr(router, pkt.locSw)
+    and router_portmap(rport, pkt.locPt, new.locPt); // host -> router
+
+/*******************************************************************************
+ *
+ * Per-subnet translators: outbound path
+ *
+ * Our goal here is to rewrite the destination MAC address (dlDst) based on the
+ * IP address. This mapping is obtained from ARP, so we first try to do the
+ * rewrite based on the ARP cache. If the ARP cache lacks a mapping, we store
+ * the packet, issue an ARP request, and later forward the packet once the ARP
+ * reply is received.
+ *
+ ******************************************************************************/
+
+// Default path: set dlDst based on ARP cache and send to subnet N (port 2N).
+// we receive from port 2N-1. note that subnet N is at port N+1 on the router.
+
+ON ip_packet(pkt):
+  DO forward(new) WHERE
+    subnets(addr, mask, gwip, ANY, router, rport)
+    and router_tr(router, pkt.locSw)
+    and pkt.nwDst IN addr/mask
+    and cached(pkt.nwDst, new.dlDst)
+    and pkt.nwDst != gwip
+    and router_portmap(rport, new.locPt, pkt.locPt); // router -> host
+
+// Alternate path: send an ARP request for IPs we can't translate and queue the pkt
+
+ON ip_packet(pkt) WHERE subnets(addr, mask, gwip, gwmac, router, rport)
+                        and router_tr(router, pkt.locSw)
+                        and pkt.nwDst IN addr/mask
+                        and not cached(pkt.nwDst, ANY)
+                        and pkt.dlDst != gwmac
+                        and pkt.nwDst != gwip
+                        and router_portmap(rport, hside, pkt.locPt): // any router side
+
+  INSERT (pkt.nwDst) INTO router_queued;
+
+  DO emit_arp(new) WHERE
+    not router_queued(pkt.nwDst) and
+    router_acl(router, new.locSw) and
+    new.locPt = hside and
+    new.dlDst = ff:ff:ff:ff:ff:ff and
+    new.dlSrc = 00:00:ca:fe:ca:fe and // controller mac addr
+
+    new.arp_op = 1 and // ARP request
+    new.arp_tpa = pkt.nwDst and
+    new.arp_sha = 00:00:CA:FE:CA:FE and // Controller MAC
+    new.arp_spa = 10.10.10.1 and // Controller IP addr (10.10.10.1)
+
+    switch_has_port(new.locSw, new.locPt); // REQUIRED? this rule is not compiled TODO(adf): needed???
+
+
+// with the above physically wired translators, we are trying to achieve
+// sequential composition with what is, logically, this program:
+//
+//  ON ip_packet(pkt):
+//    DO forward(new) WHERE
+//      cached(pkt.nwDst, new.dlDst);
+//
+//  (on the outbound direction of the router). plus, issuing ARP requests
+//  for addresses we don't know how to translate

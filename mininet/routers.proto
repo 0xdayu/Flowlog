@@ -1,0 +1,67 @@
+// Protocol Buffer describing the routers (and their associated subnets
+// and peers) for our Cisco IOS conversion.
+//
+// Author: Andrew Ferguson (adf@cs.brown.edu)
+// Modified by Tim Nelson (tn@cs.brown.edu)
+
+package flowlog;
+
+message Subnet {
+  optional string addr		= 1;  // required
+  optional int32  mask		= 2;  // required
+  optional string gw		= 3;  // required
+  optional string ifname	= 6;
+  repeated int32 physical_portid	= 7;
+}
+
+message Port {
+  // physical mininet port number and IOS interface name
+  optional int32 id = 1;
+  optional string name = 2;
+
+  // "access" or "trunk" or not present (i.e., L3-visible physical port)
+  optional string vlan_type = 3;
+
+}
+
+message Connection {
+  optional string router1 = 1;
+  optional string router2 = 2;
+  optional string iface1 = 3;
+  optional string iface2 = 4;
+}
+
+message Network {
+  optional string addr = 1;  // required
+  optional int32  mask = 2;  // required
+}
+
+message Peer {
+  optional string ip   = 1;  // required
+  optional int32  mask = 2;  // required
+  optional string mac  = 3;  // required
+
+  repeated Network networks = 4;
+}
+
+message Router {
+  optional string name      = 1;  // required
+  optional string self_dpid = 2;  // required
+  optional string nat_dpid  = 3;  // required
+  optional string tr_dpid   = 6;  // required
+  optional string acl_dpid  = 7;  // required
+  optional string vlan_dpid = 8;
+  optional int32 num_physical = 10;
+
+  repeated Subnet subnets = 4;
+  repeated Peer peers = 5;
+  repeated Port ports = 9;
+}
+
+message Routers {
+  repeated Router routers = 1;
+
+  optional string subnet_base_dpid = 2;  // required
+
+  repeated Connection connections = 3;
+}

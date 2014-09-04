@@ -1,0 +1,92 @@
+/*
+ * An application to create paired flows for multicast traffic between an
+ * AppleTV and the host which wishes to use it.
+ *
+ * TODO:
+ *  - Rules should be placed on the switches where the hosts are attached
+ *  - Make state soft state -- requires timeouts.
+ *  - We should delete entries in atv_cxns if either side moves -- this would
+ *    represent a laptop leaving a given conference room, for example.
+ *  - Also remove pairings by listening to client-initated IGMP departures
+ *
+ *  - Might not actually need IGMP messages. Also, might only need 1 mDNS msg
+ */
+
+/*******************************************************************************
+ *
+ * Data Structures
+ *
+ ******************************************************************************/
+
+EVENT atv_connect { atv_mac: macaddr, client_mac: macaddr };
+EVENT atv_announce { atv_mac: macaddr, client_mac: macaddr };
+EVENT atv_disconnect { mac: macaddr };
+
+TABLE atv_cxns(macaddr, macaddr);
+
+/*******************************************************************************
+ *
+ * Handle updates to the database
+ *
+ ******************************************************************************/
+
+ON atv_connect(evt): // XXX: can't be named "event" btw (conflict with keyword)
+  INSERT (evt.atv_mac, evt.client_mac) INTO atv_cxns;
+  INSERT (evt.client_mac, evt.atv_mac) INTO atv_cxns;
+
+ON atv_announce(evt):
+  DO emit_igmp(new) WHERE
+    (( new.dlDst = evt.client_mac and
+      new.dlSrc = evt.atv_mac and
+      new.nwSrc = 0x0A0A006A // TODO(adf): do we need correct IP addrs?
+    ) OR (
+      new.dlDst = evt.atv_mac and
+      new.dlSrc = evt.client_mac and
+      new.nwSrc = 0x0A0A0064 // TODO(adf): do we need correct IP addrs?
+    )) and
+    new.nwDst = 224.0.0.22 and // 224.0.0.22 (IGMP)
+    //new.nwTtl = 1 and
+    new.igmp_ver_and_typ = 0x22 and
+    new.igmp_v3typ = 0x4 and
+    new.igmp_addr = 224.0.0.251 and // 224.0.0.251 (mDNS)
+    new.locSw = 1 and // DPID of switch controller is connected to
+    new.locPt = 0xfff9; // OFPP_TABLE
+
+  DO emit_mdns(new) WHERE
+    new.dlDst = evt.atv_mac and
+    new.dlSrc = evt.client_mac and
+    new.nwSrc = 10.10.0.1 and // 10.10.0.0.1 (controller)
+    new.nwDst = 224.0.0.251 and // 224.0.0.251 (IGMP)
+    new.tpSrc = 5353 and
+    new.tpDst = 5353 and
+    (new.mdns_question = "_airplay._tcp.local" OR
+     new.mdns_question = "_appletv._tcp.local" OR
+     new.mdns_question = "_raop._tcp.local") and
+    new.locSw = 1 and // DPID of switch controller is connected to (0x1b219cfe57)
+    new.locPt = 0xfff9; // OFPP_TABLE
+
+
+// For now, let's go with a model that either side can break the connection
+ON atv_disconnect(evt):
+  DELETE (evt.mac, ANY) FROM atv_cxns;
+  DELETE (ANY, evt.mac) FROM atv_cxns;
+  // TODO: also generate IGMP membership departure (igmp_v3typ = 0x03)
+
+/*******************************************************************************
+ *
+ * Packet handling
+ *
+ ******************************************************************************/
+
+ON udp_packet(pkt) WHERE pkt.dlDst = 01:00:5e:00:00:fb and // mDNS IPv4 ethernet address
+                         pkt.nwDst = 224.0.0.251 and // 224.0.0.251 (mDNS group)
+                         pkt.tpDst = 5353: // (mDns port)
+
+  DO forward(new) WHERE
+    atv_cxns(pkt.dlSrc, new.dlDst) and
+    pkt.locPt = 4 and // TODO(adf): temp HACK since Pronto does not support wildcarded
+                      // in-port for rules with more than one output port (eg, ALL).
+                      // We should be setting this more carefully based on the NIB, but
+                      // for now, capitalize on the fact that the AppleTV is connected
+                      // to the same port num on the Pronto as wifi is on the Pantou.
+    new.locPt != pkt.locPt; // flooding; TODO: should be forwarding directly

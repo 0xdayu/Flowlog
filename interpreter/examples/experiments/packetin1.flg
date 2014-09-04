@@ -1,0 +1,49 @@
+
+// As this pipe takes packets, it will automatically package the notification
+// as a packet_in, not a Thrift RPC. Since the swid is not carried in the
+// packet_in, Flowlog will proxy as "Switches" of the appropriate ID with no
+// capabilities.
+
+OUTGOING send_to_cp(ip_packet) THEN
+  SEND TO 127.0.0.1:9999;
+
+// Flood the packet on the DP
+// ... AND send a copy of it elsewhere on the CP.
+
+ON ip_packet(p):
+  // don't forward and then re-forward
+  //DO forward(new) WHERE new.locPt != p.locPt;
+
+  // Want to copy everything, including the payload. ("forward"-style behavior for now)
+  DO send_to_cp(p);
+
+// TODO: distinguish forward and emit-type behaviors in these pipes (does the payload get copied?)
+
+// TODO: one port per pipe problem; not an issue here but will come up in the
+// future. (No way to index pipe by a first-class value like swid)
+
+// TODO: Allow modification to nonsw, nonpt values in outgoing packet_in
+
+//////////////////////////////////
+
+// Receive packet_outs from the control plane (_out because Flowlog proxies a
+// switch). For now, use built-in cp_packet pipes. INCOMING reactives now have
+// a third datum: whether the event comes via the DP, the CP, or Thrift. The
+// parser will always make declared reactives come from thrift, and reactives
+// created by event declarations will likewise come from Thrift.
+
+// TODO (later): add some flexibility for packet-out processing.
+
+// Take this packet and flood it on all non-eq ports for the specified switch.
+// (This tests that the source portid and swid are taken into account.)
+// We currently ignore the actions given by the external controller.
+
+ON cp_ip_packet(p):
+  DO forward(new) WHERE new.locPt != p.locPt;
+
+
+// TODO: Keepalive doesn't seem to be required for Pox. What about Ryu?
+// TODO: Pox sends a barrier before it's ready to process packet_ins. Is Ryu the same?
+
+// TODO later: actions in packet_out. Can't currently represent records in a flowlog event,
+// so packet_outs are treated as normal packets, using the in_port field for the locPt. (pt=0 if none)

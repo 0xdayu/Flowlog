@@ -1,0 +1,2258 @@
+Loading tests/testrf.flg
+~~~ ADDING SHP: FORWARD forward(TVar(new)) WHERE switch_has_port(TField(p.locsw),TField(new.locpt)), TField(p.dltyp) = TConst(2048), (not TField(p.nwproto) = TConst(89)), routes(TField(p.locsw),TVar(prefix),TVar(mask),TField(new.locpt)), TField(p.nwdst) IN TVar(prefix)/TVar(mask) TIMEOUT: none
+
+  Loaded AST. There were 5 clauses, 
+    1 of which were fully compilable forwarding clauses and
+    2 were weakened pkt-triggered clauses.
+    4 will be given, unweakened, to XSB.
+-----------
+-------------------
+Starting Flowlog Program...
+XSB started.
+[ERROR] Blocked: '[xsb_configuration loaded]
+[sysinitrc loaded]
+[xsbbrat loaded]
+
+XSB Version 3.5.0 (Maotai) of July 6, 2013
+[x86_64-unknown-linux-gnu 64 bits; mode: optimal; engine: slg-wam; scheduling: local]
+[Patch date: 2014-07-03 17:24:44 -0400 (Thu, 03 Jul 2014)]
+
+
+'
+---------------- PRINTING LISTINGS ----------------
+forward(A,B,C,D,E,F,G,H,I) :-
+switch_has_port(J,B),
+ip_packet(J,K,L,M,N,O,P,Q,R),
+switch_has_port(J,B),
+N = 2048,
+routes(J,S,T,B),
+in_ipv4_range(Q,S,T),
+not R = 89.
+
+default_user_error_handler(A) :-
+writeln(error),
+error_writeln(A).
+
+minus_switch_has_port(A,B) :-
+switch_down(A),
+switch_has_port(A,B).
+
+send_to_cp(A,B,C,D,E,F) :-
+ip_packet(A,B,C,D,E,F,G,H,I),
+E = 2048,
+I = 89.
+send_to_cp(A,B,C,D,E,F) :-
+packet(A,B,C,D,E,F).
+
+plus_switch_has_port(A,B) :-
+switch_port(A,B),
+not switch_has_port(A,B).
+
+library_directory(/home/dyu/XSB/packages).
+library_directory(/home/dyu/XSB/site/lib).
+library_directory(/home/dyu/XSB/site/config/x86_64-unknown-linux-gnu/lib).
+library_directory(/home/dyu/XSB/config/x86_64-unknown-linux-gnu/lib).
+library_directory(/home/dyu/.xsb/config/x86_64-unknown-linux-gnu).
+
+in_ipv4_range(A,B,C) :-
+D  is  (2 ^ 32 - 1) << (32 - C) /\ A,
+D  is  (2 ^ 32 - 1) << (32 - C) /\ B.
+
+yes
+-------------------------------------------------
+Started to listen for notifications.
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+INITIAL FWD policy is:
+drop
+INITIAL NOTIF policy is:
+drop + if * then fwd(65533) else drop
+INITIAL NOTIF pred is:
+*
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (1 total, 0 packets) ~~~~~~~~~~~~~~~
+SWITCH 0x5 connected. Flowlog events triggered: switch_port: [pt:2;sw:0x5], switch_port: [pt:4;sw:0x5], switch_port: [pt:1;sw:0x5], switch_port: [pt:3;sw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (2 total, 0 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (3 total, 0 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (4 total, 0 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+PUSHING NEW POLICY (number 1)!
+PUSHED NEW POLICY!
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (5 total, 0 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer 256.
+dlSrc=be:0c:9f:73:10:43,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:be:0c:9f:73:10:43;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:be:0c:9f:73:10:43;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x5]
+Opening socket for proxy switch with id 5...
+Packet in on switch 5 in buffer 257.
+dlSrc=be:0c:9f:73:10:43,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:be:0c:9f:73:10:43;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x5]
+Packet in on switch 5 in buffer 258.
+dlSrc=de:c9:e2:8c:b9:ca,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+Packet in on switch 5 in buffer 259.
+dlSrc=ba:3a:7f:f0:de:8f,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+SWITCH 0x7 connected. Flowlog events triggered: switch_port: [pt:2;sw:0x7], switch_port: [pt:1;sw:0x7], switch_port: [pt:3;sw:0x7]
+Packet in on switch 7 in buffer 256.
+dlSrc=82:63:e3:8a:28:83,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+connected to controller at 192.168.1.102 port 6633.
+SWITCH 0x8 connected. Flowlog events triggered: switch_port: [pt:2;sw:0x8], switch_port: [pt:4;sw:0x8], switch_port: [pt:1;sw:0x8], switch_port: [pt:3;sw:0x8]
+SWITCH 0x6 connected. Flowlog events triggered: switch_port: [pt:2;sw:0x6], switch_port: [pt:1;sw:0x6], switch_port: [pt:3;sw:0x6]
+received HELLO...
+Sending features reply from switch 5...
+switch registered.
+waiting for barrier and replying before starting listener
+Packet in on switch 5 in buffer -1.
+dlSrc=de:c9:e2:8c:b9:ca,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+received BarrierRequest (was waiting)...
+Sending barrier reply from switch 5...
+listening for switch 5
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (21 total, 6 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:be:0c:9f:73:10:43;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (21 total, 6 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (21 total, 6 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (21 total, 6 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (21 total, 6 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (21 total, 6 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+NEW POLICY was the same. Did not push (last was number 1).
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (21 total, 6 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+Opening socket for proxy switch with id 7...
+Packet in on switch 5 in buffer -1.
+dlSrc=ba:3a:7f:f0:de:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+Packet in on switch 7 in buffer -1.
+dlSrc=e6:5c:6b:a0:4e:8c,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:e6:5c:6b:a0:4e:8c;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x7]
+Packet in on switch 7 in buffer -1.
+dlSrc=e6:5c:6b:a0:4e:8c,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:e6:5c:6b:a0:4e:8c;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x7]
+Packet in on switch 7 in buffer -1.
+dlSrc=a2:37:d2:96:3a:24,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+Packet in on switch 7 in buffer -1.
+dlSrc=a2:37:d2:96:3a:24,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+Packet in on switch 7 in buffer -1.
+dlSrc=a2:37:d2:96:3a:24,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+received from descriptor (swid=5): 
+  xid: 589
+  msg: FlowMod
+fm: { command = AddFlow; match = {dlDst = 01:23:20:00:00:01, dlTyp = 0x88cc, nwSrc = 0.0.0.0, nwDst = 0.0.0.0, nwProto = 0, nwTos = 0, tpSrc = 0, tpDst = 0}; priority = 65000; actions = [Output Controller<65535 bytes>]; cookie = 0;idle_timeout = Permanent; hard_timeout = Permanent; notify_when_removed = false;apply_to_packet = None; out_port = None; check_overlap = false }
+listening for switch 5
+Packet in on switch 8 in buffer -1.
+dlSrc=2a:b3:82:85:84:44,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:2a:b3:82:85:84:44;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x8]
+Packet in on switch 6 in buffer -1.
+dlSrc=ee:c3:e7:79:a1:08,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+Packet in on switch 5 in buffer -1.
+dlSrc=9a:29:64:ac:3a:7b,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+Packet in on switch 5 in buffer -1.
+dlSrc=9a:29:64:ac:3a:7b,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+connected to controller at 192.168.1.102 port 6633.
+received HELLO...
+Sending features reply from switch 7...
+switch registered.
+waiting for barrier and replying before starting listener
+Packet in on switch 5 in buffer -1.
+dlSrc=9a:29:64:ac:3a:7b,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+Packet in on switch 8 in buffer -1.
+dlSrc=56:8e:1f:c9:8f:5a,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+Packet in on switch 8 in buffer -1.
+dlSrc=56:8e:1f:c9:8f:5a,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+Packet in on switch 6 in buffer -1.
+dlSrc=ee:c3:e7:79:a1:08,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+Packet in on switch 7 in buffer -1.
+dlSrc=a2:37:d2:96:3a:24,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+Packet in on switch 8 in buffer -1.
+dlSrc=56:8e:1f:c9:8f:5a,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+Packet in on switch 5 in buffer -1.
+dlSrc=9a:29:64:ac:3a:7b,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+received BarrierRequest (was waiting)...
+Sending barrier reply from switch 7...
+listening for switch 7
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (38 total, 23 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (38 total, 23 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (38 total, 23 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (38 total, 23 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+NEW POLICY was the same. Did not push (last was number 1).
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (38 total, 23 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (38 total, 23 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (38 total, 23 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+NEW POLICY was the same. Did not push (last was number 1).
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (38 total, 23 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (38 total, 23 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (38 total, 23 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:e6:5c:6b:a0:4e:8c;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (38 total, 23 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:e6:5c:6b:a0:4e:8c;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (38 total, 23 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (38 total, 23 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (38 total, 23 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (38 total, 23 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:2a:b3:82:85:84:44;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x8]
+Opening socket for proxy switch with id 8...
+Packet in on switch 5 in buffer -1.
+dlSrc=9a:29:64:ac:3a:7b,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+Packet in on switch 5 in buffer -1.
+dlSrc=9a:29:64:ac:3a:7b,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+Packet in on switch 5 in buffer -1.
+dlSrc=de:c9:e2:8c:b9:ca,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+Packet in on switch 7 in buffer -1.
+dlSrc=a2:37:d2:96:3a:24,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+Packet in on switch 7 in buffer -1.
+dlSrc=a2:37:d2:96:3a:24,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+Packet in on switch 7 in buffer -1.
+dlSrc=82:63:e3:8a:28:83,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+Packet in on switch 8 in buffer -1.
+dlSrc=56:8e:1f:c9:8f:5a,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+Packet in on switch 8 in buffer -1.
+dlSrc=56:8e:1f:c9:8f:5a,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+Packet in on switch 8 in buffer -1.
+dlSrc=56:8e:1f:c9:8f:5a,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+received from descriptor (swid=7): 
+  xid: 595
+  msg: FlowMod
+fm: { command = AddFlow; match = {dlDst = 01:23:20:00:00:01, dlTyp = 0x88cc, nwSrc = 0.0.0.0, nwDst = 0.0.0.0, nwProto = 0, nwTos = 0, tpSrc = 0, tpDst = 0}; priority = 65000; actions = [Output Controller<65535 bytes>]; cookie = 0;idle_timeout = Permanent; hard_timeout = Permanent; notify_when_removed = false;apply_to_packet = None; out_port = None; check_overlap = false }
+listening for switch 7
+Packet in on switch 7 in buffer -1.
+dlSrc=e6:5c:6b:a0:4e:8c,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:e6:5c:6b:a0:4e:8c;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x7]
+Packet in on switch 8 in buffer -1.
+dlSrc=d2:62:cb:e0:25:8f,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+Packet in on switch 8 in buffer -1.
+dlSrc=d2:62:cb:e0:25:8f,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+connected to controller at 192.168.1.102 port 6633.
+received HELLO...
+Sending features reply from switch 8...
+switch registered.
+waiting for barrier and replying before starting listener
+Packet in on switch 8 in buffer -1.
+dlSrc=d2:62:cb:e0:25:8f,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+Packet in on switch 6 in buffer -1.
+dlSrc=16:cf:79:62:b0:fd,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:16:cf:79:62:b0:fd;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x6]
+Packet in on switch 8 in buffer -1.
+dlSrc=d2:62:cb:e0:25:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+Packet in on switch 5 in buffer -1.
+dlSrc=ba:3a:7f:f0:de:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+received BarrierRequest (was waiting)...
+Sending barrier reply from switch 8...
+listening for switch 8
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (54 total, 39 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+Opening socket for proxy switch with id 6...
+Packet in on switch 8 in buffer -1.
+dlSrc=56:8e:1f:c9:8f:5a,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+connected to controller at 192.168.1.102 port 6633.
+Packet in on switch 8 in buffer -1.
+dlSrc=d2:62:cb:e0:25:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+Packet in on switch 6 in buffer -1.
+dlSrc=16:cf:79:62:b0:fd,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:16:cf:79:62:b0:fd;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x6]
+Packet in on switch 8 in buffer -1.
+dlSrc=1a:97:03:32:2f:bc,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+Packet in on switch 8 in buffer -1.
+dlSrc=1a:97:03:32:2f:bc,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+Packet in on switch 6 in buffer -1.
+dlSrc=ce:02:32:b8:0b:26,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:ce:02:32:b8:0b:26;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x6]
+received from descriptor (swid=8): 
+  xid: 601
+  msg: FlowMod
+fm: { command = AddFlow; match = {dlDst = 01:23:20:00:00:01, dlTyp = 0x88cc, nwSrc = 0.0.0.0, nwDst = 0.0.0.0, nwProto = 0, nwTos = 0, tpSrc = 0, tpDst = 0}; priority = 65000; actions = [Output Controller<65535 bytes>]; cookie = 0;idle_timeout = Permanent; hard_timeout = Permanent; notify_when_removed = false;apply_to_packet = None; out_port = None; check_overlap = false }
+listening for switch 8
+received HELLO...
+Sending features reply from switch 6...
+switch registered.
+waiting for barrier and replying before starting listener
+Packet in on switch 6 in buffer -1.
+dlSrc=ee:c3:e7:79:a1:08,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+Packet in on switch 8 in buffer -1.
+dlSrc=1a:97:03:32:2f:bc,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+Packet in on switch 7 in buffer -1.
+dlSrc=82:63:e3:8a:28:83,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+Packet in on switch 8 in buffer -1.
+dlSrc=d2:62:cb:e0:25:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+Packet in on switch 8 in buffer -1.
+dlSrc=1a:97:03:32:2f:bc,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+Packet in on switch 6 in buffer -1.
+dlSrc=22:16:a2:24:f5:4a,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:22:16:a2:24:f5:4a;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x6]
+Packet in on switch 6 in buffer -1.
+dlSrc=22:16:a2:24:f5:4a,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:22:16:a2:24:f5:4a;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x6]
+received BarrierRequest (was waiting)...
+Sending barrier reply from switch 6...
+listening for switch 6
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:e6:5c:6b:a0:4e:8c;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:16:cf:79:62:b0:fd;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:16:cf:79:62:b0:fd;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:ce:02:32:b8:0b:26;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:22:16:a2:24:f5:4a;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:22:16:a2:24:f5:4a;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (67 total, 52 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=9a:29:64:ac:3a:7b,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (68 total, 53 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=de:c9:e2:8c:b9:ca,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (69 total, 54 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=36:2c:5f:a2:7b:f6,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:36:2c:5f:a2:7b:f6;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:36:2c:5f:a2:7b:f6;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (70 total, 55 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=de:c9:e2:8c:b9:ca,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (71 total, 56 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=ba:3a:7f:f0:de:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (72 total, 57 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=9a:bb:4c:1a:8a:4f,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:9a:bb:4c:1a:8a:4f;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:9a:bb:4c:1a:8a:4f;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (73 total, 58 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=9a:bb:4c:1a:8a:4f,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:9a:bb:4c:1a:8a:4f;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:9a:bb:4c:1a:8a:4f;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (74 total, 59 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=a2:37:d2:96:3a:24,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (75 total, 60 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=82:63:e3:8a:28:83,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (76 total, 61 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=a2:37:d2:96:3a:24,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (77 total, 62 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=82:63:e3:8a:28:83,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (78 total, 63 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=a2:37:d2:96:3a:24,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (79 total, 64 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=1a:97:03:32:2f:bc,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (80 total, 65 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=d2:62:cb:e0:25:8f,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (81 total, 66 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=1a:97:03:32:2f:bc,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (82 total, 67 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=56:8e:1f:c9:8f:5a,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (83 total, 68 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=52:61:31:8c:2a:ca,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:52:61:31:8c:2a:ca;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:52:61:31:8c:2a:ca;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (84 total, 69 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=1a:97:03:32:2f:bc,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (85 total, 70 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=d2:62:cb:e0:25:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (86 total, 71 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=1a:97:03:32:2f:bc,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (87 total, 72 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=56:8e:1f:c9:8f:5a,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (88 total, 73 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 6 in buffer -1.
+dlSrc=22:16:a2:24:f5:4a,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:22:16:a2:24:f5:4a;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x6]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:22:16:a2:24:f5:4a;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (89 total, 74 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 6 in buffer -1.
+dlSrc=ee:c3:e7:79:a1:08,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (90 total, 75 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 6 in buffer -1.
+dlSrc=ee:c3:e7:79:a1:08,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (91 total, 76 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 6 in buffer -1.
+dlSrc=ee:c3:e7:79:a1:08,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (92 total, 77 packets) ~~~~~~~~~~~~~~~
+received from descriptor (swid=6): 
+  xid: 607
+  msg: FlowMod
+fm: { command = AddFlow; match = {dlDst = 01:23:20:00:00:01, dlTyp = 0x88cc, nwSrc = 0.0.0.0, nwDst = 0.0.0.0, nwProto = 0, nwTos = 0, tpSrc = 0, tpDst = 0}; priority = 65000; actions = [Output Controller<65535 bytes>]; cookie = 0;idle_timeout = Permanent; hard_timeout = Permanent; notify_when_removed = false;apply_to_packet = None; out_port = None; check_overlap = false }
+listening for switch 6
+Packet in on switch 5 in buffer -1.
+dlSrc=de:c9:e2:8c:b9:ca,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (93 total, 78 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=ba:3a:7f:f0:de:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (94 total, 79 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=9a:29:64:ac:3a:7b,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (95 total, 80 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=de:c9:e2:8c:b9:ca,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (96 total, 81 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=9a:29:64:ac:3a:7b,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (97 total, 82 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=9a:bb:4c:1a:8a:4f,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:9a:bb:4c:1a:8a:4f;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:9a:bb:4c:1a:8a:4f;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (98 total, 83 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=a2:37:d2:96:3a:24,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (99 total, 84 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=56:8e:1f:c9:8f:5a,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (100 total, 85 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=d2:62:cb:e0:25:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (101 total, 86 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=d2:62:cb:e0:25:8f,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (102 total, 87 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=9a:29:64:ac:3a:7b,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (103 total, 88 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=9a:29:64:ac:3a:7b,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (104 total, 89 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=be:0c:9f:73:10:43,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:be:0c:9f:73:10:43;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:be:0c:9f:73:10:43;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (105 total, 90 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=a2:37:d2:96:3a:24,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (106 total, 91 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=1a:97:03:32:2f:bc,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (107 total, 92 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=56:8e:1f:c9:8f:5a,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (108 total, 93 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=de:c9:e2:8c:b9:ca,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (109 total, 94 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 6 in buffer -1.
+dlSrc=16:cf:79:62:b0:fd,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:16:cf:79:62:b0:fd;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x6]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:16:cf:79:62:b0:fd;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (110 total, 95 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=d2:62:cb:e0:25:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (111 total, 96 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=de:c9:e2:8c:b9:ca,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (112 total, 97 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=1a:97:03:32:2f:bc,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (113 total, 98 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=a2:37:d2:96:3a:24,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (114 total, 99 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=9a:29:64:ac:3a:7b,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (115 total, 100 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=1a:97:03:32:2f:bc,dlDst=33:33:00:00:00:16,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:16;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:16;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (116 total, 101 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=56:8e:1f:c9:8f:5a,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (117 total, 102 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=a2:37:d2:96:3a:24,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (118 total, 103 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=9a:29:64:ac:3a:7b,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (119 total, 104 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=82:63:e3:8a:28:83,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (120 total, 105 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=56:8e:1f:c9:8f:5a,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (121 total, 106 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=d2:62:cb:e0:25:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (122 total, 107 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=ba:3a:7f:f0:de:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (123 total, 108 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 6 in buffer -1.
+dlSrc=ee:c3:e7:79:a1:08,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (124 total, 109 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=d2:62:cb:e0:25:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (125 total, 110 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=1a:97:03:32:2f:bc,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (126 total, 111 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=1a:97:03:32:2f:bc,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (127 total, 112 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=de:c9:e2:8c:b9:ca,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (128 total, 113 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=a2:37:d2:96:3a:24,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (129 total, 114 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=9a:29:64:ac:3a:7b,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (130 total, 115 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=56:8e:1f:c9:8f:5a,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (131 total, 116 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=d2:62:cb:e0:25:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (132 total, 117 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=1a:97:03:32:2f:bc,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (133 total, 118 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 6 in buffer -1.
+dlSrc=16:cf:79:62:b0:fd,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:16:cf:79:62:b0:fd;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x6]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:16:cf:79:62:b0:fd;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (134 total, 119 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 6 in buffer -1.
+dlSrc=16:cf:79:62:b0:fd,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:16:cf:79:62:b0:fd;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x6]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:16:cf:79:62:b0:fd;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (135 total, 120 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=82:63:e3:8a:28:83,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (136 total, 121 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=82:63:e3:8a:28:83,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (137 total, 122 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=ba:3a:7f:f0:de:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (138 total, 123 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 6 in buffer -1.
+dlSrc=ee:c3:e7:79:a1:08,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (139 total, 124 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=ba:3a:7f:f0:de:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (140 total, 125 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 6 in buffer -1.
+dlSrc=ee:c3:e7:79:a1:08,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (141 total, 126 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=de:c9:e2:8c:b9:ca,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (142 total, 127 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 6 in buffer -1.
+dlSrc=16:cf:79:62:b0:fd,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:16:cf:79:62:b0:fd;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x6]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:16:cf:79:62:b0:fd;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (143 total, 128 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=de:c9:e2:8c:b9:ca,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (144 total, 129 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=a2:37:d2:96:3a:24,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (145 total, 130 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=9a:29:64:ac:3a:7b,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (146 total, 131 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=56:8e:1f:c9:8f:5a,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (147 total, 132 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=a2:37:d2:96:3a:24,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (148 total, 133 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=9a:29:64:ac:3a:7b,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (149 total, 134 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=82:63:e3:8a:28:83,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (150 total, 135 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=56:8e:1f:c9:8f:5a,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (151 total, 136 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 6 in buffer -1.
+dlSrc=16:cf:79:62:b0:fd,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:16:cf:79:62:b0:fd;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x6]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:16:cf:79:62:b0:fd;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (152 total, 137 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=d2:62:cb:e0:25:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (153 total, 138 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=ba:3a:7f:f0:de:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (154 total, 139 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=d2:62:cb:e0:25:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (155 total, 140 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 6 in buffer -1.
+dlSrc=ee:c3:e7:79:a1:08,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (156 total, 141 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=1a:97:03:32:2f:bc,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (157 total, 142 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=1a:97:03:32:2f:bc,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (158 total, 143 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=82:63:e3:8a:28:83,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (159 total, 144 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=36:2c:5f:a2:7b:f6,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:36:2c:5f:a2:7b:f6;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:36:2c:5f:a2:7b:f6;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (160 total, 145 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=ba:3a:7f:f0:de:8f,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (161 total, 146 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 6 in buffer -1.
+dlSrc=ce:02:32:b8:0b:26,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:ce:02:32:b8:0b:26;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x6]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:ce:02:32:b8:0b:26;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (162 total, 147 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 6 in buffer -1.
+dlSrc=ee:c3:e7:79:a1:08,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (163 total, 148 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=52:61:31:8c:2a:ca,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:52:61:31:8c:2a:ca;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:52:61:31:8c:2a:ca;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (164 total, 149 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=de:c9:e2:8c:b9:ca,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (165 total, 150 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=a2:37:d2:96:3a:24,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (166 total, 151 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=9a:29:64:ac:3a:7b,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (167 total, 152 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=56:8e:1f:c9:8f:5a,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (168 total, 153 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=de:c9:e2:8c:b9:ca,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:de:c9:e2:8c:b9:ca;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (169 total, 154 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=2a:b3:82:85:84:44,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:2a:b3:82:85:84:44;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:2a:b3:82:85:84:44;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (170 total, 155 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=be:0c:9f:73:10:43,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:be:0c:9f:73:10:43;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:be:0c:9f:73:10:43;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (171 total, 156 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=d2:62:cb:e0:25:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (172 total, 157 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=e6:5c:6b:a0:4e:8c,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:e6:5c:6b:a0:4e:8c;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:e6:5c:6b:a0:4e:8c;dltyp:0x86dd;dlvlan:-1;locpt:1;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (173 total, 158 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=a2:37:d2:96:3a:24,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:a2:37:d2:96:3a:24;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (174 total, 159 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=1a:97:03:32:2f:bc,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (175 total, 160 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=9a:29:64:ac:3a:7b,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:9a:29:64:ac:3a:7b;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (176 total, 161 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=56:8e:1f:c9:8f:5a,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:56:8e:1f:c9:8f:5a;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (177 total, 162 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=d2:62:cb:e0:25:8f,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:d2:62:cb:e0:25:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (178 total, 163 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 8 in buffer -1.
+dlSrc=1a:97:03:32:2f:bc,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:1a:97:03:32:2f:bc;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x8]
+sending packet_in from switch id = 8
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (179 total, 164 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 6 in buffer -1.
+dlSrc=22:16:a2:24:f5:4a,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:22:16:a2:24:f5:4a;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x6]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:22:16:a2:24:f5:4a;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (180 total, 165 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=9a:bb:4c:1a:8a:4f,dlDst=33:33:00:00:00:02,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:02;dlsrc:9a:bb:4c:1a:8a:4f;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:02;dlsrc:9a:bb:4c:1a:8a:4f;dltyp:0x86dd;dlvlan:-1;locpt:65534;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (181 total, 166 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 6 in buffer -1.
+dlSrc=16:cf:79:62:b0:fd,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:16:cf:79:62:b0:fd;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x6]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:16:cf:79:62:b0:fd;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (182 total, 167 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 7 in buffer -1.
+dlSrc=82:63:e3:8a:28:83,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:82:63:e3:8a:28:83;dltyp:0x86dd;dlvlan:-1;locpt:2;locsw:0x7]
+sending packet_in from switch id = 7
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (183 total, 168 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 5 in buffer -1.
+dlSrc=ba:3a:7f:f0:de:8f,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:ba:3a:7f:f0:de:8f;dltyp:0x86dd;dlvlan:-1;locpt:4;locsw:0x5]
+sending packet_in from switch id = 5
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (184 total, 169 packets) ~~~~~~~~~~~~~~~
+Packet in on switch 6 in buffer -1.
+dlSrc=ee:c3:e7:79:a1:08,dlDst=33:33:00:00:00:fb,frameType=0x86DD
+~~~ Incoming Notif:
+ packet: [dldst:33:33:00:00:00:fb;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+REMOTE STATE --- REFRESHING: routes(P__LOCSW,PREFIX,MASK,NEW__LOCPT)
+Sending BB query to 192.168.1.102:9090...
+Connected.
+doQuery called.
+sending: packet: [dldst:33:33:00:00:00:fb;dlsrc:ee:c3:e7:79:a1:08;dltyp:0x86dd;dlvlan:-1;locpt:3;locsw:0x6]
+sending packet_in from switch id = 6
+DONE WITH DOSENDPACKETIN
+~~~~~~~~~~~~~~~~~~~FINISHED EVENT (185 total, 170 packets) ~~~~~~~~~~~~~~~
+HALTED XSB.
+
+Exiting gracefully due to break signal.
+Ocaml exiting~
+LWT exiting~

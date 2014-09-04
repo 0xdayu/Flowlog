@@ -1,0 +1,48 @@
+// TEST for mask syntax and compilation
+
+// TODO: path resolution is bad here if we try to run from examples/experiments. Will fail to resolve NIB (which ARP uses)
+
+INCLUDE "examples/Arp_Cache.flg";
+INCLUDE "examples/Mac_Learning.inc.flg";
+
+// subnets(subnet addr, subnet mask, gw ip, gw mac, locSw, locpt)
+TABLE subnets(ipaddr, int, ipaddr, macaddr, switchid, portid);
+
+table router_queued(switchid);
+
+// MAC learning running on other switches (we manually prevent it from running on swid = 0x1000000000000001)
+ON ip_packet(pkt) WHERE pkt.locSw = 0x1000000000000001:
+  DO forward(new) WHERE
+  ((pkt.nwDst IN 10.0.1.0/24 and new.dlDst = 00:00:00:00:00:01)
+   or
+   (pkt.nwDst IN 10.0.2.0/24 and new.dlDst = 00:00:00:00:00:02))
+   and
+    subnets(addr, mask, gwip, new.dlsrc, pkt.locSw, new.locPt)
+    and pkt.nwdst IN addr/mask; // gwip unused?
+
+
+
+insert (pkt.locsw) into router_queued where
+  pkt.nwsrc in 200.200.200.200/24
+  or
+  pkt.nwdst in 200.200.200.200/24;
+
+// AND translate for outbound (should be sequentially composed with above)
+
+//ON ip_packet(pkt) WHERE pkt.nwDst = 10.0.1.2:
+//  DO forward(new) WHERE
+//    new.dlDst = 00:00:00:00:00:01;
+
+//ON ip_packet(pkt) WHERE pkt.nwDst = 10.0.2.2:
+//  DO forward(new) WHERE
+//    new.dlDst = 00:00:00:00:00:02;
+
+// config
+
+ON startup(ev):
+  INSERT (10.0.1.1, ca:fe:ca:fe:00:01) INTO cached; // 10.0.1.1/24 gw mac addr
+  INSERT (10.0.2.1, ca:fe:ca:fe:00:02) INTO cached; // 10.0.2.1/24 gw mac addr
+
+  // subnets(subnet addr, subnet mask, gw ip,    gw mac,            locSw,                  locpt)
+  INSERT (10.0.1.0,       24,          10.0.1.1, ca:fe:ca:fe:00:01, 0x1000000000000001,     1) INTO subnets;
+  INSERT (10.0.2.0,       24,          10.0.2.1, ca:fe:ca:fe:00:02, 0x1000000000000001,     2) INTO subnets;

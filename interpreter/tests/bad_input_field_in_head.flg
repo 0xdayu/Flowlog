@@ -1,0 +1,8 @@
+
+// This program should produce a compiler error:
+// It uses an unknown field for switch_port.
+
+// MALFORMED CLAUSE *HEAD*
+ON switch_port(swpt):
+  INSERT (swpt.notafieldomg, swpt.pt) INTO switch_has_port;
+

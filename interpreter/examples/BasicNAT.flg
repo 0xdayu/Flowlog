@@ -1,0 +1,25 @@
+TABLE nat(macaddr, ipaddr, tpport, tpport);
+VAR nextport: tpport = 10000;
+
+ON tcp_packet(p) WHERE p.locPt = 1 AND
+    nat(p.dlSrc, p.nwSrc, p.tpSrc, natport):
+  DO forward(new) WHERE new.tpSrc = natport AND
+    new.nwSrc = 192.168.100.100 AND
+    new.dlSrc = 00:00:00:00:00:FF AND new.locPt = 2;
+
+ON tcp_packet(p) WHERE p.locPt = 1 AND
+     NOT nat(p.dlSrc, p.nwSrc, p.tpSrc, ANY):
+  INSERT(p.dlSrc, p.nwSrc, p.tpSrc, nextport) INTO nat;
+  INCREMENT nextport;
+
+  DO forward(new) WHERE new.tpSrc = nextport AND
+   new.nwSrc = 192.168.100.100 AND
+   new.dlSrc = 00:00:00:00:00:FF AND new.locPt = 2;
+
+// Return traffic in a nat flow
+ON tcp_packet(p) WHERE p.locpt = 2 AND
+             nat(origmac, origip, origport, p.tpDst):
+  DO forward(new) WHERE new.tpDst = origport AND
+                        new.nwDst = origip AND
+                        new.dlDst = origmac AND
+                        new.locPt = 1;

@@ -1,0 +1,29 @@
+
+/* This variation on Mac_Learning is identical except for different names.
+   Used for change-impact soundness testing. */
+
+// WARNING: This version is old, do not use it as an example of how to run Mac Learning!
+
+TABLE learned(switchid, portid, macaddr);
+
+
+ON packet(p):
+
+  INSERT (p.locSw, p.locPt, p.dlSrc) INTO learned WHERE
+    not learned(p.locSw, p.locPt, p.dlSrc);
+
+  DELETE (p.locSw, pt, p.dlSrc) FROM learned WHERE
+    not pt = p.locPt
+    // The optimization requirement: ctrlr will learn something new
+    AND not learned(p.locSw, p.locPt, p.dlSrc);
+
+    // This rule doesn't have the negations all at the end of the
+    // resulting clauses. If no ps forwarded, it means negation-shuffling has failed.
+  DO forward(n) WHERE
+    (learned(p.locSw, n.locPt, p.dlDst) AND
+      p.locPt != n.locPt
+     )
+    OR
+    (NOT learned(p.locSw, x, p.dlDst) AND
+     NOT p.locPt = n.locPt
+    );

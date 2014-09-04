@@ -1,0 +1,9 @@
+
+// This program should produce a compiler error:
+
+OUTGOING emit(packet) THEN
+  SEND TO 127.0.0.1 9091;
+
+ON packet(pkt):
+  DO forward(new) WHERE new.locPt != pkt.locPt;
+
